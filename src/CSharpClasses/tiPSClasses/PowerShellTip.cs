@@ -15,6 +15,40 @@ namespace tiPS
 		Other // Tips that don't fit into any of the other categories.
 	}
 
+	public class TipFeedbackCommandCriteria
+	{
+		public string Pattern { get; set; }
+		public string CommandName { get; set; }
+
+		public TipFeedbackCommandCriteria()
+		{
+			Pattern = string.Empty;
+			CommandName = string.Empty;
+		}
+	}
+
+	public class TipFeedbackErrorCriteria
+	{
+		public string Exception { get; set; }
+
+		public TipFeedbackErrorCriteria()
+		{
+			Exception = string.Empty;
+		}
+	}
+
+	public class TipFeedbackCriteria
+	{
+		public TipFeedbackCommandCriteria CommandCriteria { get; set; }
+		public TipFeedbackErrorCriteria ErrorCriteria { get; set; }
+
+		public TipFeedbackCriteria()
+		{
+			CommandCriteria = new TipFeedbackCommandCriteria();
+			ErrorCriteria = new TipFeedbackErrorCriteria();
+		}
+	}
+
 	public class PowerShellTip
 	{
 		public DateTime CreatedDate { get; set; }
@@ -25,6 +59,7 @@ namespace tiPS
 		public TipCategory Category { get; set; }
 		public DateTime ExpiryDate { get; set; }
 		public string Author { get; set; }
+		public TipFeedbackCriteria FeedbackCriteria { get; set; }
 
 		public PowerShellTip()
 		{
@@ -36,6 +71,7 @@ namespace tiPS
 			Category = TipCategory.Other;
 			ExpiryDate = DateTime.MaxValue;
 			Author = string.Empty;
+			FeedbackCriteria = new TipFeedbackCriteria();
 		}
 
 		public string Id
